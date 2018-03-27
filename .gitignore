@@ -33,3 +33,6 @@ hs_err_pid*
 Будет удалено src/main/resources/
 Будет удалено src/test/
 Будет удалено target/
+/spring00.iml
+/target/
+/.idea/
