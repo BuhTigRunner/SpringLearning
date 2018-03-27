@@ -1,9 +1,17 @@
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 public class App {
     private Client client;
-    private ConsoleEventLogger eventLogger;
+    private EventLogger eventLogger;
 
+    public App() {
+    }
 
-
+    public App(Client client, EventLogger eventLogger) {
+        this.client = client;
+        this.eventLogger = eventLogger;
+    }
 
     public void setClient(Client client) {
         this.client = client;
@@ -20,10 +28,12 @@ public class App {
 
 
     public static void main(String[] args) {
-        App app = new App();
-        app.client = new Client("1", "John Smith");
-        app.eventLogger = new ConsoleEventLogger();
-        app.logEvent("Some event for user 1");
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+        App app = context.getBean("app", App.class);
+
+        app.logEvent("Some event for 1");
+        app.logEvent("Some event for 2");
+
     }
 
 
