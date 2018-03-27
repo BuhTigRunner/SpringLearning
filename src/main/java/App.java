@@ -21,9 +21,8 @@ public class App {
         this.eventLogger = eventLogger;
     }
 
-    private void logEvent(String msg) {
-        String message = msg.replaceAll(client.getId(), client.getFullName());
-        eventLogger.logEvent(message);
+    private void logEvent(Event event) {
+        eventLogger.logEvent(event);
     }
 
 
@@ -31,8 +30,8 @@ public class App {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
         App app = context.getBean("app", App.class);
 
-        app.logEvent("Some event for 1");
-        app.logEvent("Some event for 2");
+        app.logEvent(context.getBean(Event.class));
+        app.logEvent(context.getBean(Event.class));
 
     }
 
