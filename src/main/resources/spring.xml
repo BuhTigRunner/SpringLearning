@@ -8,6 +8,15 @@
         <constructor-arg index="1" value="Denis Borisenko"/>
     </bean>
 
+    <bean id="cacheFileEventLogger" class="CacheFileEventLogger" destroy-method="destroy">
+        <constructor-arg index="0" value="log.txt"/>
+        <constructor-arg index="1" value="10"/>
+    </bean>
+
+    <bean id="fileEventLogger" class="FileEventLogger" init-method="init">
+        <constructor-arg value="log.txt"/>
+    </bean>
+
     <bean id="eventLogger"
           class="ConsoleEventLogger"/>
     <bean id="dateTimeFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
@@ -23,7 +32,7 @@
     <bean id="app"
           class="App">
         <constructor-arg ref="client"/>
-        <constructor-arg ref="eventLogger"/>
+        <constructor-arg ref="cacheFileEventLogger"/>
     </bean>
 
 </beans>
