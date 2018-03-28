@@ -1,33 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-lazy-init="true">
+    <import resource="loggers.xml"/>
 
     <bean id="client" class="Client">
         <constructor-arg index="0" value="1"/>
         <constructor-arg index="1" value="Denis Borisenko"/>
     </bean>
 
-    <bean id="cacheFileEventLogger" class="CacheFileEventLogger" destroy-method="destroy">
-        <constructor-arg index="0" value="log.txt"/>
-        <constructor-arg index="1" value="10"/>
-    </bean>
-
-    <bean id="fileEventLogger" class="FileEventLogger" init-method="init">
-        <constructor-arg value="log.txt"/>
-    </bean>
-
-    <bean id="eventLogger"
-          class="ConsoleEventLogger"/>
     <bean id="dateTimeFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
-    <bean id="event" scope="prototype"
-          class="Event">
-        <constructor-arg>
-            <bean class="java.util.Date"/>
-        </constructor-arg>
-        <constructor-arg ref="dateTimeFormat"/>
-
-    </bean>
 
     <bean id="app"
           class="App">
