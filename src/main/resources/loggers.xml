@@ -13,7 +13,7 @@
         <constructor-arg value="log.txt"/>
     </bean>
 
-    <bean id="eventLogger"
+    <bean id="consoleEventLogger"
           class="ConsoleEventLogger"/>
 
     <bean id="event" scope="prototype"
@@ -22,6 +22,15 @@
             <bean class="java.util.Date"/>
         </constructor-arg>
         <constructor-arg ref="dateTimeFormat"/>
+    </bean>
+
+    <bean id="combinedEventLogger" class="CombinedEventLogger">
+        <constructor-arg>
+            <list>
+                <ref bean="consoleEventLogger"/>
+                <ref bean="fileEventLogger"/>
+            </list>
+        </constructor-arg>
     </bean>
 
 </beans>

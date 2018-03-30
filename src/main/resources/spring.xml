@@ -8,6 +8,7 @@
     <bean id="client" class="Client">
         <constructor-arg index="0" value="1"/>
         <constructor-arg index="1" value="Denis Borisenko"/>
+        <property name="greeting" value="Hello there!"/>
     </bean>
 
     <bean id="dateTimeFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
@@ -16,6 +17,15 @@
           class="App">
         <constructor-arg ref="client"/>
         <constructor-arg ref="cacheFileEventLogger"/>
+        <constructor-arg>
+            <map>
+                <entry key="INFO"
+                       value-ref="consoleEventLogger"/>
+                <entry key="ERROR"
+                       value-ref="combinedEventLogger"/>
+            </map>
+        </constructor-arg>
+        <property name="defaultLogger" ref="cacheFileEventLogger"/>
     </bean>
 
 </beans>
