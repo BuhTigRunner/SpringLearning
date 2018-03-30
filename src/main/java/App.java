@@ -42,6 +42,7 @@ public class App {
         app.logEvent(EventType.ERROR, context.getBean(Event.class));
         app.logEvent(EventType.INFO, context.getBean(Event.class));
         app.logEvent(null, context.getBean(Event.class));
+        System.out.println(context.getBean(Client.class));
 
         context.close();
 

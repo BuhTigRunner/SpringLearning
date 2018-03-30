@@ -32,4 +32,13 @@ public class Client {
     public void setGreeting(String greeting) {
         this.greeting = greeting;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id='" + id + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", greeting='" + greeting + '\'' +
+                '}';
+    }
 }

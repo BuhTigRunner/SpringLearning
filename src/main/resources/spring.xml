@@ -1,31 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress SpringFacetInspection -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
-       default-lazy-init="true">
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
     <import resource="loggers.xml"/>
 
     <bean id="client" class="Client">
-        <constructor-arg index="0" value="1"/>
-        <constructor-arg index="1" value="Denis Borisenko"/>
-        <property name="greeting" value="Hello there!"/>
+        <constructor-arg index="0" value="${id}"/>
+        <constructor-arg index="1" value="${name}"/>
+        <property name="greeting" value="${greeting}"/>
     </bean>
 
     <bean id="dateTimeFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
+
+    <util:map id="loggerMap">
+        <entry key="INFO" value-ref="consoleEventLogger" />
+        <entry key="ERROR" value-ref="combinedEventLogger" />
+    </util:map>
+
 
     <bean id="app"
           class="App">
         <constructor-arg ref="client"/>
         <constructor-arg ref="cacheFileEventLogger"/>
-        <constructor-arg>
-            <map>
-                <entry key="INFO"
-                       value-ref="consoleEventLogger"/>
-                <entry key="ERROR"
-                       value-ref="combinedEventLogger"/>
-            </map>
+        <constructor-arg ref="loggerMap">
+
         </constructor-arg>
         <property name="defaultLogger" ref="cacheFileEventLogger"/>
     </bean>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:client.properties</value>
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+    </bean>
+
 
 </beans>
