@@ -32,7 +32,7 @@
         <constructor-arg ref="loggerMap">
 
         </constructor-arg>
-        <property name="defaultLogger" ref="cacheFileEventLogger"/>
+        <property name="defaultLogger" value="#{T(Event).isDay() ? fileEventLogger : consoleEventLogger}"/>
     </bean>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

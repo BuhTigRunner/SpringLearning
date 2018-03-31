@@ -31,4 +31,14 @@ public class Event {
                 ", date=" + dateFormat.format(date) +
                 '}';
     }
+
+
+    public static boolean isDay() {
+        Date date = new Date();
+        int hours = date.getHours();
+        boolean res = hours > 8 && hours < 17;
+        System.out.println("isDay: " + res);
+        return res;
+    }
+
 }
