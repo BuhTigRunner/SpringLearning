@@ -10,6 +10,8 @@
         http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
     <import resource="loggers.xml"/>
+    <import resource="aspects.xml"/>
+
 
     <bean id="client" class="Client">
         <constructor-arg index="0" value="${id}"/>
@@ -20,8 +22,8 @@
     <bean id="dateTimeFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
 
     <util:map id="loggerMap">
-        <entry key="INFO" value-ref="consoleEventLogger" />
-        <entry key="ERROR" value-ref="combinedEventLogger" />
+        <entry key="INFO" value-ref="consoleEventLogger"/>
+        <entry key="ERROR" value-ref="combinedEventLogger"/>
     </util:map>
 
 
